@@ -1,4 +1,4 @@
-export const products = [
+const products = [
   {
     id: 1,
     title: "book",
@@ -63,3 +63,4 @@ export const products = [
     imported: true,
   },
 ];
+export default products;

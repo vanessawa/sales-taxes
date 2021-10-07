@@ -1,16 +1,21 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div v-for="Product in Products" :key="Product.id">
+    {{ Product.title }}
+    <span v-text="Product.price + (Product.price * Product.tax) / 100" />
+  </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import Products from "./components/Products.js";
 
 export default {
   name: "App",
-  components: {
-    HelloWorld,
+  data() {
+    return {
+      Products,
+    };
   },
+  components: {},
 };
 </script>
 
