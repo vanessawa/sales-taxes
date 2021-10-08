@@ -1,16 +1,20 @@
 <template>
-  <h1>Welcome to our shop</h1>
-  <h2>Products</h2>
-  <div v-for="Product in Products" :key="Product.id">
-    {{ Product.title }}
-    <span v-text="grossPrice(Product)" />
-    <button id="basket-btn" @click="onClick(Product)">add to basket</button>
-  </div>
-  <br />
-  <h2>Basket</h2>
-  <div v-for="Basketitem in Basket" :key="Basketitem.id">
-    {{ Basketitem.title }} {{ Basketitem.grossPrice }}
-  </div>
+  <header>
+    <h1>Welcome to our shop</h1>
+  </header>
+  <main>
+    <h2>Products</h2>
+    <div class="prodDiv" v-for="Product in Products" :key="Product.id">
+      {{ Product.title }}
+      <span v-text="grossPrice(Product)" />
+      <button id="basket-btn" @click="onClick(Product)">add to basket</button>
+    </div>
+    <br />
+    <h2 v-if="Basket.length >= 1">Basket</h2>
+    <div class="prodDiv" v-for="Basketitem in Basket" :key="Basketitem.id">
+      {{ Basketitem.title }} {{ Basketitem.grossPrice }}
+    </div>
+  </main>
 </template>
 
 <script>
@@ -43,16 +47,46 @@ export default {
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: left;
   color: #2c3e50;
   margin-top: 3rem;
   margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+header {
+  background-image: url("https://www.itemis.com/hubfs/Corporate_Website/3MXX%20Header/h-startseite-k.jpg");
+  padding: 3rem;
+  background-size: cover;
+}
+
+h1 {
+  color: white;
+}
+
+main {
+  margin-left: 2.5rem;
+  margin-top: 2rem;
+  color: #00457c;
 }
 
 #basket-btn {
-  margin-left: 0.5rem;
+  border: 0;
+  background: rgba(145, 144, 144, 0.139);
+  color: inherit;
+  position: relative;
+}
+
+#basket-btn:hover {
+  background-color: rgba(74, 74, 74, 0.139);
+}
+
+.prodDiv {
+  max-width: 600px;
+  display: grid;
+  grid-template-columns: 1fr 0.5fr 0.5fr;
 }
 </style>
