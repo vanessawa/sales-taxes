@@ -4,14 +4,14 @@
   </header>
   <main>
     <h2>Products</h2>
-    <div class="prodDiv" v-for="Product in Products" :key="Product.id">
+    <div id="prodDiv" v-for="Product in Products" :key="Product.id">
       {{ Product.title }}
       <span v-text="grossPrice(Product)" />
       <button id="basket-btn" @click="onClick(Product)">add to basket</button>
     </div>
     <br />
     <h2 v-if="Basket.length >= 1">Basket</h2>
-    <div class="prodDiv" v-for="Basketitem in Basket" :key="Basketitem.id">
+    <div id="prodDiv" v-for="Basketitem in Basket" :key="Basketitem.id">
       {{ Basketitem.title }} {{ Basketitem.grossPrice }}
     </div>
   </main>
@@ -30,14 +30,28 @@ export default {
   },
   components: {},
   methods: {
+    taxPrice(Product) {
+      let taxes = (Product.price * Product.tax) / 100;
+
+      if (Product.imported === true) {
+        taxes = ((Product.tax + 5) * Product.price) / 100;
+      }
+
+      let factor = 0.05;
+      let rounded = Math.ceil(taxes / factor) * factor;
+      let taxPrice = rounded.toFixed(2);
+
+      return taxPrice;
+    },
+
     grossPrice(Product) {
-      let grossPrice = Math.round(
-        Product.price + (Product.price * Product.tax) / 100
-      );
+      let grossPrice = Product.price + this.taxPrice(Product);
+
       return grossPrice;
     },
 
     onClick(Product) {
+      Product.taxPrice = this.taxPrice(Product);
       Product.grossPrice = this.grossPrice(Product);
       this.Basket.push(Product);
     },
@@ -77,16 +91,16 @@ main {
   border: 0;
   background: rgba(145, 144, 144, 0.139);
   color: inherit;
-  position: relative;
 }
 
 #basket-btn:hover {
   background-color: rgba(74, 74, 74, 0.139);
 }
 
-.prodDiv {
+#prodDiv {
   max-width: 600px;
   display: grid;
   grid-template-columns: 1fr 0.5fr 0.5fr;
+  margin-bottom: 3px;
 }
 </style>
