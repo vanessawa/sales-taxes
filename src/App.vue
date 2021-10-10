@@ -13,22 +13,22 @@
     <br />
     <h2 v-if="Basket.length >= 1">Basket</h2>
     <div v-if="Basket.length >= 1" id="basketDiv">
-      <span class="headSpan">Product</span>
-      <span class="headSpan endSpan">Net</span>
-      <span class="headSpan endSpan">Tax</span>
-      <span class="headSpan endSpan">Gross price</span>
+      <b>Product</b>
+      <b class="endSpan">Net</b>
+      <b class="endSpan">Tax</b>
+      <b class="endSpan">Gross price</b>
     </div>
     <div v-for="Basketitem in Basket" :key="Basketitem.id">
       <div id="basketDiv">
         <span>{{ Basketitem.title }}</span>
-        <span class="endSpan">{{ Basketitem.price }}</span>
+        <span class="endSpan">{{ Basketitem.price.toFixed(2) }}</span>
         <span class="endSpan">{{ Basketitem.taxPrice }}</span>
         <span class="endSpan">{{ Basketitem.grossPrice }}</span>
       </div>
     </div>
     <div v-for="Basketitem in Basket" :key="Basketitem.id"></div>
-    <div id="basketDiv">
-      <span class="headSpan">Sum</span>
+    <div id="basketDiv" v-if="Basket.length >= 1">
+      <b>Sum</b>
       <b class="endSpan" v-text="netSum(Basket)" />
       <b class="endSpan" v-text="taxSum(Basket)" />
       <b class="endSpan" v-text="grossSum(Basket)" />
@@ -151,10 +151,6 @@ main {
 
 .endSpan {
   justify-self: end;
-}
-
-.headSpan {
-  font-weight: 800;
 }
 
 #basketDiv {
