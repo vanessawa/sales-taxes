@@ -11,8 +11,13 @@
     </div>
     <br />
     <h2 v-if="Basket.length >= 1">Basket</h2>
-    <div id="prodDiv" v-for="Basketitem in Basket" :key="Basketitem.id">
-      {{ Basketitem.title }} {{ Basketitem.grossPrice }}
+    <div v-for="Basketitem in Basket" :key="Basketitem.id">
+      <div id="basketDiv">
+        <p>{{ Basketitem.title }}</p>
+        <p>Net: {{ Basketitem.price }}</p>
+        <p>Tax: {{ Basketitem.taxPrice }}</p>
+        <p>Gross price: {{ Basketitem.grossPrice }}</p>
+      </div>
     </div>
   </main>
 </template>
@@ -45,9 +50,9 @@ export default {
     },
 
     grossPrice(Product) {
-      let grossPrice = Product.price + this.taxPrice(Product);
+      let grossPrice = Product.price + parseFloat(this.taxPrice(Product));
 
-      return grossPrice;
+      return grossPrice.toFixed(2);
     },
 
     onClick(Product) {
@@ -98,9 +103,16 @@ main {
 }
 
 #prodDiv {
-  max-width: 600px;
+  max-width: 700px;
   display: grid;
   grid-template-columns: 1fr 0.5fr 0.5fr;
+  margin-bottom: 3px;
+}
+
+#basketDiv {
+  max-width: 700px;
+  display: grid;
+  grid-template-columns: 1fr 0.5fr 0.5fr 0.5fr;
   margin-bottom: 3px;
 }
 </style>
