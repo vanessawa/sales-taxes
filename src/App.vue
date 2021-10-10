@@ -7,17 +7,31 @@
     <div id="prodDiv" v-for="Product in Products" :key="Product.id">
       {{ Product.title }}
       <span class="endSpan" v-text="grossPrice(Product)" />
+
       <button id="basket-btn" @click="onClick(Product)">add to basket</button>
     </div>
     <br />
     <h2 v-if="Basket.length >= 1">Basket</h2>
+    <div v-if="Basket.length >= 1" id="basketDiv">
+      <span class="headSpan">Product</span>
+      <span class="headSpan endSpan">Net</span>
+      <span class="headSpan endSpan">Tax</span>
+      <span class="headSpan endSpan">Gross price</span>
+    </div>
     <div v-for="Basketitem in Basket" :key="Basketitem.id">
       <div id="basketDiv">
         <span>{{ Basketitem.title }}</span>
-        <span class="endSpan">Net: {{ Basketitem.price }}</span>
-        <span class="endSpan">Tax: {{ Basketitem.taxPrice }}</span>
-        <span class="endSpan">Gross price: {{ Basketitem.grossPrice }}</span>
+        <span class="endSpan">{{ Basketitem.price }}</span>
+        <span class="endSpan">{{ Basketitem.taxPrice }}</span>
+        <span class="endSpan">{{ Basketitem.grossPrice }}</span>
       </div>
+    </div>
+    <div v-for="Basketitem in Basket" :key="Basketitem.id"></div>
+    <div id="basketDiv">
+      <span class="headSpan">Sum</span>
+      <b class="endSpan" v-text="netSum(Basket)" />
+      <b class="endSpan" v-text="taxSum(Basket)" />
+      <b class="endSpan" v-text="grossSum(Basket)" />
     </div>
   </main>
 </template>
@@ -55,6 +69,31 @@ export default {
       return grossPrice.toFixed(2);
     },
 
+    taxSum(Basket) {
+      let taxSum = 0;
+      Basket.forEach(
+        (BasketItem) => (taxSum += parseFloat(BasketItem.taxPrice))
+      );
+
+      return taxSum.toFixed(2);
+    },
+
+    netSum(Basket) {
+      let netSum = 0;
+      Basket.forEach((BasketItem) => (netSum += parseFloat(BasketItem.price)));
+
+      return netSum.toFixed(2);
+    },
+
+    grossSum(Basket) {
+      let grossSum = 0;
+      Basket.forEach(
+        (BasketItem) => (grossSum += parseFloat(BasketItem.grossPrice))
+      );
+
+      return grossSum.toFixed(2);
+    },
+
     onClick(Product) {
       Product.taxPrice = this.taxPrice(Product);
       Product.grossPrice = this.grossPrice(Product);
@@ -71,9 +110,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: left;
   color: #2c3e50;
-  margin-top: 3rem;
-  margin-left: 2rem;
-  margin-right: 2rem;
+  margin: 3rem 2rem;
 }
 
 header {
@@ -114,6 +151,10 @@ main {
 
 .endSpan {
   justify-self: end;
+}
+
+.headSpan {
+  font-weight: 800;
 }
 
 #basketDiv {
