@@ -6,17 +6,17 @@
     <h2>Products</h2>
     <div id="prodDiv" v-for="Product in Products" :key="Product.id">
       {{ Product.title }}
-      <span v-text="grossPrice(Product)" />
+      <span class="prodSpan" v-text="grossPrice(Product)" />
       <button id="basket-btn" @click="onClick(Product)">add to basket</button>
     </div>
     <br />
     <h2 v-if="Basket.length >= 1">Basket</h2>
     <div v-for="Basketitem in Basket" :key="Basketitem.id">
       <div id="basketDiv">
-        <p>{{ Basketitem.title }}</p>
-        <p>Net: {{ Basketitem.price }}</p>
-        <p>Tax: {{ Basketitem.taxPrice }}</p>
-        <p>Gross price: {{ Basketitem.grossPrice }}</p>
+        <span>{{ Basketitem.title }}</span>
+        <span>Net: {{ Basketitem.price }}</span>
+        <span>Tax: {{ Basketitem.taxPrice }}</span>
+        <span>Gross price: {{ Basketitem.grossPrice }}</span>
       </div>
     </div>
   </main>
@@ -105,8 +105,14 @@ main {
 #prodDiv {
   max-width: 700px;
   display: grid;
-  grid-template-columns: 1fr 0.5fr 0.5fr;
+  grid-template-columns: 200px 100px 100px;
   margin-bottom: 3px;
+  grid-column-gap: 15px;
+  justify-content: space-between;
+}
+
+.prodSpan {
+  justify-self: end;
 }
 
 #basketDiv {
