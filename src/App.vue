@@ -6,7 +6,7 @@
     <h2>Products</h2>
     <div id="prodDiv" v-for="Product in Products" :key="Product.id">
       {{ Product.title }}
-      <span class="prodSpan" v-text="grossPrice(Product)" />
+      <span class="endSpan" v-text="grossPrice(Product)" />
       <button id="basket-btn" @click="onClick(Product)">add to basket</button>
     </div>
     <br />
@@ -14,9 +14,9 @@
     <div v-for="Basketitem in Basket" :key="Basketitem.id">
       <div id="basketDiv">
         <span>{{ Basketitem.title }}</span>
-        <span>Net: {{ Basketitem.price }}</span>
-        <span>Tax: {{ Basketitem.taxPrice }}</span>
-        <span>Gross price: {{ Basketitem.grossPrice }}</span>
+        <span class="endSpan">Net: {{ Basketitem.price }}</span>
+        <span class="endSpan">Tax: {{ Basketitem.taxPrice }}</span>
+        <span class="endSpan">Gross price: {{ Basketitem.grossPrice }}</span>
       </div>
     </div>
   </main>
@@ -88,6 +88,7 @@ h1 {
 
 main {
   margin-left: 2.5rem;
+  margin-right: 2.5rem;
   margin-top: 2rem;
   color: #00457c;
 }
@@ -111,14 +112,28 @@ main {
   justify-content: space-between;
 }
 
-.prodSpan {
+.endSpan {
   justify-self: end;
 }
 
 #basketDiv {
   max-width: 700px;
   display: grid;
-  grid-template-columns: 1fr 0.5fr 0.5fr 0.5fr;
+  grid-template-columns: 1fr 0.5fr 0.5fr 1fr;
   margin-bottom: 3px;
+  column-gap: 1rem;
+}
+
+@media (max-width: 510px) {
+  #prodDiv {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+  #basketDiv {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
 }
 </style>
