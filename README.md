@@ -4,34 +4,21 @@ This ist an coding assignment to calculate taxes. You see kind of online-shop wi
 
 ## Installation & Usage
 
-Run `npm install`
-Start the vue server with `npm run serve`
-Open the app on `http://localhost:8080/ `
-
-## Project setup
+Run
 
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+Start the vue server with
 
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+Open the app on
 
+````
+http://localhost:8080/
 ```
-npm run build
-```
-
-### Lints and fixes files
-
-```
-npm run lint
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
+````
