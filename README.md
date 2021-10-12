@@ -4,21 +4,10 @@ This ist an coding assignment to calculate taxes. You see kind of online-shop wi
 
 ## Installation & Usage
 
-Run
+Run `npm install`
 
-```
-npm install
-```
+Start the vue server with `npm run serve`
 
-Start the vue server with
+Open the app on `http://localhost:8080/`
 
-```
-npm run serve
-```
-
-Open the app on
-
-````
-http://localhost:8080/
-```
-````
+Run the unit-test with `jest test`

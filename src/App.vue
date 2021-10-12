@@ -19,32 +19,13 @@
     </div>
     <br />
     <h2 v-if="basket.length >= 1">Basket</h2>
-    <div v-if="basket.length >= 1" class="basketDiv">
-      <b>Product</b>
-      <b class="endSpan">Net</b>
-      <b class="endSpan">Tax</b>
-      <b class="endSpan">Gross price</b>
-    </div>
-    <div v-for="basketitem in basket" :key="basketitem.id">
-      <div class="basketDiv">
-        <span>{{ basketitem.title }}</span>
-        <span class="endSpan">{{ basketitem.price.toFixed(2) }}</span>
-        <span class="endSpan">{{ basketitem.taxPrice }}</span>
-        <span class="endSpan">{{ basketitem.grossPrice }}</span>
-      </div>
-    </div>
-    <div v-for="basketitem in basket" :key="basketitem.id"></div>
-    <div class="basketDiv" v-if="basket.length >= 1">
-      <b>Sum</b>
-      <b class="endSpan" v-text="netSum(basket)" />
-      <b class="endSpan" v-text="taxSum(basket)" />
-      <b class="endSpan" v-text="grossSum(basket)" />
-    </div>
+    <BasketCom :basket="basket" />
   </main>
 </template>
 
 <script>
 import products from "./components/Products.js";
+import BasketCom from "./components/BasketCom.vue";
 
 export default {
   name: "App",
@@ -53,6 +34,10 @@ export default {
       basket: [],
       products,
     };
+  },
+
+  components: {
+    BasketCom,
   },
 
   methods: {
