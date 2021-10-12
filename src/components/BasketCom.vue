@@ -5,7 +5,7 @@
     <b class="endSpan">Tax</b>
     <b class="endSpan">Gross price</b>
   </div>
-  <div v-for="basketitem in basket" :key="basketitem.id">
+  <div v-for="basketitem in basket" :key="basketitem.id" :id="basketitem.id">
     <div class="basketDiv">
       <span>{{ basketitem.title }}</span>
       <span class="endSpan">{{ basketitem.price.toFixed(2) }}</span>

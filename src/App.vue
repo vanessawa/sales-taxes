@@ -13,7 +13,7 @@
       {{ product.title }}
       <span class="endSpan" v-text="grossPrice(product)" />
 
-      <button class="basket-btn" @click="addToBasket(product)">
+      <button class="basket-btn" @click="addToBasket(product)" :id="product.id">
         add to basket
       </button>
     </div>
