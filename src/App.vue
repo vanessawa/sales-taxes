@@ -4,56 +4,63 @@
   </header>
   <main>
     <h2>Products</h2>
-    <div id="prodDiv" v-for="Product in Products" :key="Product.id">
-      {{ Product.title }}
-      <span class="endSpan" v-text="grossPrice(Product)" />
+    <div
+      class="prodDiv"
+      v-for="product in products"
+      :key="product.id"
+      v-bind="product"
+    >
+      {{ product.title }}
+      <span class="endSpan" v-text="grossPrice(product)" />
 
-      <button id="basket-btn" @click="onClick(Product)">add to basket</button>
+      <button class="basket-btn" @click="addToBasket(product)">
+        add to basket
+      </button>
     </div>
     <br />
-    <h2 v-if="Basket.length >= 1">Basket</h2>
-    <div v-if="Basket.length >= 1" id="basketDiv">
+    <h2 v-if="basket.length >= 1">Basket</h2>
+    <div v-if="basket.length >= 1" class="basketDiv">
       <b>Product</b>
       <b class="endSpan">Net</b>
       <b class="endSpan">Tax</b>
       <b class="endSpan">Gross price</b>
     </div>
-    <div v-for="Basketitem in Basket" :key="Basketitem.id">
-      <div id="basketDiv">
-        <span>{{ Basketitem.title }}</span>
-        <span class="endSpan">{{ Basketitem.price.toFixed(2) }}</span>
-        <span class="endSpan">{{ Basketitem.taxPrice }}</span>
-        <span class="endSpan">{{ Basketitem.grossPrice }}</span>
+    <div v-for="basketitem in basket" :key="basketitem.id">
+      <div class="basketDiv">
+        <span>{{ basketitem.title }}</span>
+        <span class="endSpan">{{ basketitem.price.toFixed(2) }}</span>
+        <span class="endSpan">{{ basketitem.taxPrice }}</span>
+        <span class="endSpan">{{ basketitem.grossPrice }}</span>
       </div>
     </div>
-    <div v-for="Basketitem in Basket" :key="Basketitem.id"></div>
-    <div id="basketDiv" v-if="Basket.length >= 1">
+    <div v-for="basketitem in basket" :key="basketitem.id"></div>
+    <div class="basketDiv" v-if="basket.length >= 1">
       <b>Sum</b>
-      <b class="endSpan" v-text="netSum(Basket)" />
-      <b class="endSpan" v-text="taxSum(Basket)" />
-      <b class="endSpan" v-text="grossSum(Basket)" />
+      <b class="endSpan" v-text="netSum(basket)" />
+      <b class="endSpan" v-text="taxSum(basket)" />
+      <b class="endSpan" v-text="grossSum(basket)" />
     </div>
   </main>
 </template>
 
 <script>
-import Products from "./components/Products.js";
+import products from "./components/Products.js";
 
 export default {
   name: "App",
   data() {
     return {
-      Products,
-      Basket: [],
+      basket: [],
+      products,
     };
   },
-  components: {},
-  methods: {
-    taxPrice(Product) {
-      let taxes = (Product.price * Product.tax) / 100;
 
-      if (Product.imported === true) {
-        taxes = ((Product.tax + 5) * Product.price) / 100;
+  methods: {
+    taxPrice(product) {
+      let taxes = (product.price * product.tax) / 100;
+
+      if (product.imported === true) {
+        taxes = ((product.tax + 5) * product.price) / 100;
       }
 
       let factor = 0.05;
@@ -63,41 +70,41 @@ export default {
       return taxPrice;
     },
 
-    grossPrice(Product) {
-      let grossPrice = Product.price + parseFloat(this.taxPrice(Product));
+    grossPrice(product) {
+      let grossPrice = product.price + parseFloat(this.taxPrice(product));
 
       return grossPrice.toFixed(2);
     },
 
-    taxSum(Basket) {
+    taxSum(basket) {
       let taxSum = 0;
-      Basket.forEach(
-        (BasketItem) => (taxSum += parseFloat(BasketItem.taxPrice))
+      basket.forEach(
+        (basketitem) => (taxSum += parseFloat(basketitem.taxPrice))
       );
 
       return taxSum.toFixed(2);
     },
 
-    netSum(Basket) {
+    netSum(basket) {
       let netSum = 0;
-      Basket.forEach((BasketItem) => (netSum += parseFloat(BasketItem.price)));
+      basket.forEach((basketitem) => (netSum += parseFloat(basketitem.price)));
 
       return netSum.toFixed(2);
     },
 
-    grossSum(Basket) {
+    grossSum(basket) {
       let grossSum = 0;
-      Basket.forEach(
-        (BasketItem) => (grossSum += parseFloat(BasketItem.grossPrice))
+      basket.forEach(
+        (basketitem) => (grossSum += parseFloat(basketitem.grossPrice))
       );
 
       return grossSum.toFixed(2);
     },
 
-    onClick(Product) {
-      Product.taxPrice = this.taxPrice(Product);
-      Product.grossPrice = this.grossPrice(Product);
-      this.Basket.push(Product);
+    addToBasket(product) {
+      product.taxPrice = this.taxPrice(product);
+      product.grossPrice = this.grossPrice(product);
+      this.basket.push(product);
     },
   },
 };
@@ -130,17 +137,17 @@ main {
   color: #00457c;
 }
 
-#basket-btn {
+.basket-btn {
   border: 0;
   background: rgba(145, 144, 144, 0.139);
   color: inherit;
 }
 
-#basket-btn:hover {
+.basket-btn:hover {
   background-color: rgba(74, 74, 74, 0.139);
 }
 
-#prodDiv {
+.prodDiv {
   max-width: 700px;
   display: grid;
   grid-template-columns: 200px 100px 100px;
@@ -153,7 +160,7 @@ main {
   justify-self: end;
 }
 
-#basketDiv {
+.basketDiv {
   max-width: 700px;
   display: grid;
   grid-template-columns: 1fr 0.5fr 0.5fr 1fr;
@@ -162,12 +169,12 @@ main {
 }
 
 @media (max-width: 510px) {
-  #prodDiv {
+  .prodDiv {
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
   }
-  #basketDiv {
+  .basketDiv {
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
