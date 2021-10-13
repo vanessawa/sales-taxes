@@ -12,10 +12,14 @@ Open the app on `http://localhost:8080/`
 
 ### Testing
 
-Install jest with `npm install jest —global`
+#### Unit-Test
+
+Install jest with `npm install jest --global`
 
 Run the unit-test with `jest test`
 
-Install cypress with `npm install cypress —global`
+#### E2E-Test
+
+Install cypress with `npm install cypress --global`
 
 Run the e2e-test with `cypress run`

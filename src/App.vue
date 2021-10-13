@@ -61,31 +61,6 @@ export default {
       return grossPrice.toFixed(2);
     },
 
-    taxSum(basket) {
-      let taxSum = 0;
-      basket.forEach(
-        (basketitem) => (taxSum += parseFloat(basketitem.taxPrice))
-      );
-
-      return taxSum.toFixed(2);
-    },
-
-    netSum(basket) {
-      let netSum = 0;
-      basket.forEach((basketitem) => (netSum += parseFloat(basketitem.price)));
-
-      return netSum.toFixed(2);
-    },
-
-    grossSum(basket) {
-      let grossSum = 0;
-      basket.forEach(
-        (basketitem) => (grossSum += parseFloat(basketitem.grossPrice))
-      );
-
-      return grossSum.toFixed(2);
-    },
-
     addToBasket(product) {
       product.taxPrice = this.taxPrice(product);
       product.grossPrice = this.grossPrice(product);
@@ -122,6 +97,10 @@ main {
   color: #00457c;
 }
 
+.endSpan {
+  justify-self: end;
+}
+
 .basket-btn {
   border: 0;
   background: rgba(145, 144, 144, 0.139);
@@ -133,27 +112,24 @@ main {
 }
 
 .prodDiv {
-  max-width: 700px;
+  max-width: 80ch;
   display: grid;
-  grid-template-columns: 200px 100px 100px;
-  margin-bottom: 3px;
-  grid-column-gap: 15px;
+  grid-template-columns: 25ch 15ch 15ch;
+  margin-bottom: 0.2rem;
+  grid-column-gap: 1rem;
   justify-content: space-between;
 }
 
-.endSpan {
-  justify-self: end;
-}
-
 .basketDiv {
-  max-width: 700px;
+  max-width: 80ch;
   display: grid;
-  grid-template-columns: 1fr 0.5fr 0.5fr 1fr;
-  margin-bottom: 3px;
-  column-gap: 1rem;
+  grid-template-columns: 25ch 10ch 10ch 15ch;
+  margin-bottom: 0.2rem;
+  grid-column-gap: 1rem;
+  justify-content: space-between;
 }
 
-@media (max-width: 510px) {
+@media (max-width: 670px) {
   .prodDiv {
     display: flex;
     flex-direction: column;
