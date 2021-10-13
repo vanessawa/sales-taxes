@@ -6,7 +6,7 @@ describe("testing site access", () => {
     cy.contains("h2", "Products");
   });
 });
-describe("clicking all the buttons!1", () => {
+describe("clicking all the buttons", () => {
   for (let i = 1; i <= 9; i++) {
     it('click button [id="' + i + '"]', () => {
       cy.visit("http://localhost:8080");

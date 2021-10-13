@@ -1,4 +1,4 @@
-import products from "../../src/components/Products";
+import products from "../../src/components/Products.js";
 
 function taxCalc(product) {
   let taxes = (product.price * product.tax) / 100;
